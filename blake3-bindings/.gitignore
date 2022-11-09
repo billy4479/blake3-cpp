@@ -1,2 +1,4 @@
 /target
 /Cargo.lock
+blake3.h
+build
