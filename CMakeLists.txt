@@ -27,7 +27,7 @@ add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_SRC})
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_precompile_headers(${PROJECT_NAME} PRIVATE "include/Precompiled.hpp")
 
-add_subdirectory(blake3)
+add_subdirectory(blake3-bindings)
 target_link_libraries(${PROJECT_NAME} blake3)
 
 enable_sanitizers(${PROJECT_NAME})

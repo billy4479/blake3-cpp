@@ -2,10 +2,10 @@
 
 class MyClass {
   public:
-    MyClass(i32);
+    MyClass(u32);
 
-    i32 get_my_number();
+    u32 get_my_number();
 
   private:
-    i32 m_my_number{0};
+    u32 m_my_number{0};
 };
