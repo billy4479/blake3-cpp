@@ -9,7 +9,7 @@ fn main() {
     );
 
     cbindgen::Builder::new()
-        .with_namespace("blake3")
+        .with_namespace("blake3_bindings")
         .with_crate(crate_dir)
         .generate()
         .expect("Unable to generate bindings")
