@@ -6,7 +6,10 @@ Hash::Hash(std::span<u8> input) {
     m_hash = blake3_bindings::hash(input.data(), input.size());
 }
 
-Hash::~Hash() { blake3_bindings::free_hash(m_hash); }
+Hash::~Hash() {
+    blake3_bindings::free_hash(m_hash);
+    m_hash = nullptr;
+}
 
 std::array<u8, 32> Hash::as_bytes() {
     auto out = *blake3_bindings::hash_as_bytes(m_hash);

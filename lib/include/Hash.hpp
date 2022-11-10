@@ -19,7 +19,7 @@ class Hash {
     std::string as_hex();
 
   private:
-    blake3_bindings::Hash *m_hash;
+    blake3_bindings::Hash *m_hash{nullptr};
 };
 
 } // namespace blake3
