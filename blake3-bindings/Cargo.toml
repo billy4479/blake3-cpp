@@ -7,8 +7,7 @@ edition = "2021"
 crate-type = ["staticlib","cdylib"]
 
 [dependencies]
-blake3 = "1.3.1"
+blake3 = {version = "1.3.1", features=["rayon"]}
 
 [build-dependencies]
 cbindgen = "0.24.3"
-blake3 = "1.3.1"

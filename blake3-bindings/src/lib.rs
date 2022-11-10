@@ -62,6 +62,14 @@ pub extern "C" fn hasher_update(hasher: *mut blake3::Hasher, data: *const u8, le
 }
 
 #[no_mangle]
+pub extern "C" fn hasher_update_rayon(hasher: *mut blake3::Hasher, data: *const u8, length: usize) {
+    unsafe {
+        let input = std::slice::from_raw_parts(data, length);
+        hasher.as_mut().unwrap().update_rayon(input);
+    }
+}
+
+#[no_mangle]
 pub extern "C" fn hasher_finalize(hasher: *mut blake3::Hasher) -> *mut blake3::Hash {
     unsafe { Box::into_raw(Box::new(hasher.as_mut().unwrap().finalize())) }
 }

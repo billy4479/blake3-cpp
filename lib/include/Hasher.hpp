@@ -14,6 +14,7 @@ class Hasher {
     ~Hasher();
 
     void update(std::span<u8>);
+    void update_multithreaded(std::span<u8>);
     void reset();
     u64 count();
 
