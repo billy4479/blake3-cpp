@@ -2,7 +2,10 @@ use std::alloc::{dealloc, Layout};
 use std::ffi::{c_char, c_ulonglong, CString};
 use std::ptr;
 
+// We need these to generate a opaque struct in the header
+#[allow(dead_code)]
 struct Hash;
+#[allow(dead_code)]
 struct Hasher;
 
 #[no_mangle]
