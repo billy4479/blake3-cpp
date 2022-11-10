@@ -3,7 +3,11 @@
 cmake_minimum_required(VERSION 3.14)
 
 set(blake3_build_dir ${CMAKE_BINARY_DIR}/blake3-bindings)
-set(blake3_library_name "libblake3_bindings.a")
+if(BUILD_SHARED_LIBS)
+  set(blake3_library_name "libblake3_bindings.so")
+else()
+  set(blake3_library_name "libblake3_bindings.a")
+endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "")
   set(CMAKE_BUILD_TYPE Debug)
@@ -22,7 +26,7 @@ ExternalProject_Add(
                 ${blake3_build_dir} "$<IF:$<CONFIG:Debug>,,--release>"
   BUILD_BYPRODUCTS
     ${blake3_build_dir}/$<IF:$<CONFIG:Debug>,debug,release>/${blake3_library_name}
-    ${blake3_build_dir}/blake3.h
+    ${blake3_build_dir}/blake3_bindings.h
   INSTALL_COMMAND ""
   # Location of sources (since we don't download).
   SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}"

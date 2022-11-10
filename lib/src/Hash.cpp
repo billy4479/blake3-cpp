@@ -22,7 +22,7 @@ std::array<u8, 32> Hash::as_bytes() {
 std::string Hash::as_hex() {
     auto ptr = blake3_bindings::hash_as_hex(m_hash);
     auto str = std::string(ptr);
-    delete ptr;
+    free((void *)ptr);
     return str;
 }
 
