@@ -4,7 +4,7 @@ fn main() {
     let crate_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
 
     let out_file = format!(
-        "{}/blake3.h",
+        "{}/blake3_bindings.h",
         std::env::var("BUILD_DIR").unwrap_or(String::from("."))
     );
 

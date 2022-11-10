@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.18)
 
 project(
-  blake3-cpp
+  blake-cpp
   VERSION 0.0.1
   LANGUAGES CXX)
 
@@ -14,21 +14,11 @@ include(Cache)
 include(Sanitizers)
 include(Warnings)
 
-file(
-  GLOB_RECURSE
-  ${PROJECT_NAME}_SRC
-  include/*.hpp
-  include/*.h
-  src/*.cpp
-  src/*.hpp
-  src/*.h)
-
-add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_SRC})
-target_include_directories(${PROJECT_NAME} PRIVATE include)
-target_precompile_headers(${PROJECT_NAME} PRIVATE "include/Precompiled.hpp")
+option(BUILD_TEST "Compile a test application" ON)
 
 add_subdirectory(blake3-bindings)
-target_link_libraries(${PROJECT_NAME} blake3)
+add_subdirectory(lib)
 
-enable_sanitizers(${PROJECT_NAME})
-set_project_warnings(${PROJECT_NAME})
+if(BUILD_TEST)
+  add_subdirectory(test)
+endif()

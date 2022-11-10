@@ -1,4 +1,6 @@
+use std::alloc::{dealloc, Layout};
 use std::ffi::{c_char, c_ulonglong, CString};
+use std::ptr;
 
 struct Hash;
 struct Hasher;
@@ -8,6 +10,14 @@ pub extern "C" fn hash(data: *const u8, length: usize) -> *mut blake3::Hash {
     unsafe {
         let input = std::slice::from_raw_parts(data, length);
         Box::into_raw(Box::new(blake3::hash(input)))
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn free_hash(hash: *mut blake3::Hash) {
+    unsafe {
+        ptr::drop_in_place(hash);
+        dealloc(hash as *mut u8, Layout::new::<blake3::Hash>());
     }
 }
 
@@ -30,6 +40,14 @@ pub extern "C" fn hash_as_hex(hash: *const blake3::Hash) -> *const c_char {
 #[no_mangle]
 pub extern "C" fn new_hasher() -> *mut blake3::Hasher {
     Box::into_raw(Box::new(blake3::Hasher::new()))
+}
+
+#[no_mangle]
+pub extern "C" fn free_hasher(hasher: *mut blake3::Hasher) {
+    unsafe {
+        ptr::drop_in_place(hasher);
+        dealloc(hasher as *mut u8, Layout::new::<blake3::Hasher>());
+    }
 }
 
 #[no_mangle]
